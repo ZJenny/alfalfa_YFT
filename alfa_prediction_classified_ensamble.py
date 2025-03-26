@@ -558,4 +558,4 @@ if __name__ == "__main__":
     test_experiments = ["BushlandCenterPivot_2023", "RenoDripIrrigation_2023"]
 
     # Train and evaluate ensemble model with your name
-    model_package, results = train_test_ensemble("Merge_Allcombine_Data_With_Location_Year.csv", train_experiments, test_experiments, author_name="Jenny")  # Replace with your actual name
+    model_package, results = train_test_ensemble("Merge_Allcombine_Data_With_Location_Year.csv", train_experiments, test_experiments, author_name="Jenny")
