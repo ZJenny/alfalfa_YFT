@@ -13,45 +13,6 @@ The goal of this project is to develop accurate predictive models for alfalfa dr
 - Alfalfa variety information
 - Soil water deficit measurements
 
-## Models Implemented
-
-The repository contains several machine learning approaches for yield prediction:
-
-1. **FM-like Random Forest (alfa_prediction_classified_fmrf.py)** - ⭐ **Best Performing Model** ⭐
-   - Combines Factorization Machine (FM) style interaction features with Random Forest or ElasticNet
-   - Automatically selects the best performing approach between ElasticNet and Random Forest
-   - Incorporates polynomial feature interactions to capture complex relationships
-
-2. **Ensemble Model (alfa_prediction_classified_integrated.py)**
-   - Stacking ensemble that combines FM-like, XGBoost, and Random Forest approaches
-   - Uses meta-learning to optimize the combination of base learners
-
-3. **Neural Network (alfa_prediction_classified_nn.py)**
-   - Multi-layer perceptron with regularization techniques
-   - Adaptively sizes the network based on available data volume
-
-4. **Random Forest (alfa_prediction_classified_rf.py)**
-   - Tree-based ensemble with hyperparameter optimization
-   - Includes feature importance analysis
-
-5. **Support Vector Machine (alfa_prediction_classified_svm.py)**
-   - Optimized kernel selection and hyperparameter tuning
-   - Two-phase tuning approach for more efficient parameter search
-
-6. **XGBoost (alfa_prediction_classified_xgboost.py)**
-   - Gradient boosting implementation with feature selection
-   - Includes detailed error analysis by experiment
-
-## Key Features of the Best Model (FM-like RF)
-
-The `alfa_prediction_classified_fmrf.py` model achieves the best performance through several key innovations:
-
-- **Feature Engineering**: Creates domain-specific features like seasonal transformations (sine/cosine of day of year) and location/irrigation type indicators
-- **Interaction Terms**: Generates pairwise interaction features similar to Factorization Machines to capture complex relationships
-- **Adaptive Complexity**: Automatically limits feature interactions for large feature spaces to prevent memory issues
-- **Model Selection**: Dynamically selects between ElasticNet (for linear relationships with interactions) and Random Forest (for non-linear patterns)
-- **Robust Preprocessing**: Handles missing values with context-aware strategies (e.g., zeros for missing irrigation amounts)
-- **Detailed Evaluation**: Provides experiment-specific performance metrics and visualizations for error analysis
 
 ## Usage Example
 
@@ -105,7 +66,6 @@ The FM-like model (`alfa_prediction_classified_fmrf.py`) consistently outperform
 - matplotlib
 - seaborn
 - joblib
-- tensorflow (for neural network model only)
 - xgboost (for XGBoost and ensemble models only)
 
 ## Future Improvements
