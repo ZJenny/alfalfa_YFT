@@ -79,24 +79,6 @@ best_model, results = train_test_fm_alternative(
 )
 ```
 
-## Project Structure
-
-```
-.
-├── model_v01/
-│   ├── alfa_prediction_classified_fmrf.py    # Best performing model
-│   ├── alfa_prediction_classified_integrated.py
-│   ├── alfa_prediction_classified_nn.py
-│   ├── alfa_prediction_classified_rf.py
-│   ├── alfa_prediction_classified_svm.py
-│   ├── alfa_prediction_classified_xgboost.py
-│   └── var.py                               # Common variables
-├── saved_models/                            # Saved model files
-├── results/                                 # Performance metrics
-├── results_csv/                             # Detailed prediction results
-└── png/                                     # Visualization outputs
-```
-
 ## Model Outputs
 ### Test
 All models generate:
