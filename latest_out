@@ -1,0 +1,363 @@
+alfafa) jzz0124@jie-TimeSeries:/data/jzz0124/projects/alfafa/test$ python train_model.py 
+=============================================
+=== STARTING ALFALFA YIELD MODEL PIPELINE ===
+=============================================
+--- STARTING PREPROCESSING ---
+Loading data...
+Working with 701 rows that have yield data
+Removed 1 rows with negative yield values
+Calculating rolling features with 180-day window...
+Calculating monthly features for January to May...
+Calculating 3-month pre-harvest features...
+Merging features...
+Before filtering: 2124 rows in merged dataset
+Removed 1 additional rows with negative yield values
+After filtering: 700 rows with valid yield data remaining
+Creating train/test split using specified experiments...
+Train set: 470 samples from 15 experiments
+Test set: 192 samples from 2 experiments
+
+Train experiments:
+  - BushlandLysimeters_1997: 8 samples
+  - BushlandLysimeters_1998: 10 samples
+  - BushlandLysimeters_1999: 8 samples
+  - BushlandLysimeters_1996: 8 samples
+  - RenoDripIrrigation_2021: 72 samples
+  - RenoDripIrrigation_2022: 72 samples
+  - BushlandCenterPivot_2022: 96 samples
+  - BushlandCenterPivot_2023: 127 samples
+  - Fallon_1973_Final: 12 samples
+  - Fallon_1974_Final: 12 samples
+  - Fallon_1975_Final: 12 samples
+  - Fallon_1976_Final: 9 samples
+  - Fallon_1977_Final: 12 samples
+  - Fallon_1978_Final: 8 samples
+  - Fallon_1982: 4 samples
+
+Test experiments:
+  - RenoLinearMoveIrrigation_2023: 120 samples
+  - RenoDripIrrigation_2023: 72 samples
+--- PREPROCESSING FINISHED ---
+
+--- STARTING MODEL TRAINING & EVALUATION ---
+Preprocessing features (fitting ColumnTransformer)...
+Training XGBoost with GridSearchCV...
+Fitting 5 folds for each of 144 candidates, totalling 720 fits
+Best XGBoost parameters: {'colsample_bytree': 1.0, 'learning_rate': 0.1, 'max_depth': 5, 'n_estimators': 100, 'subsample': 0.8}
+Evaluating XGBoost model...
+XGBoost Performance:
+  RMSE: 1.1307
+  R²: 0.5321
+  MAE: 0.8669
+Generating plots and saving results...
+train_model.py:211: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  ax = sns.boxplot(x="Experiment", y="Residual", data=error_df, palette="viridis")
+
+Experiment-specific performance:
+  - RenoLinearMoveIrrigation_2023:
+    * RMSE: 0.7462
+    * R²: 0.6432
+    * MAE: 0.5995
+    * Samples: 120
+  - RenoDripIrrigation_2023:
+    * RMSE: 1.5752
+    * R²: 0.4694
+    * MAE: 1.3125
+    * Samples: 72
+
+XGBoost analysis complete!
+- Model package saved to: /data/jzz0124/projects/alfafa/test/saved_models/XGBoost_GridSearchCV_xgboost_alf_yield_model_20251112_220417.joblib
+- All plots and CSV results saved to 'plots/', 'results/', and 'results_csv/' folders.
+--- MODELING FINISHED ---
+=============================================
+===      PIPELINE RUN FINISHED            ===
+=============================================
+Total execution time: 1008.86 seconds
+
+Overall Model Performance:
+  RMSE: 1.1307
+  R²:   0.5321
+  MAE:  0.8669
+---------------------------------------------
+(alfafa) jzz0124@jie-TimeSeries:/data/jzz0124/projects/alfafa/test$ python train_competing_models.py 
+======================================================
+=== STARTING ALFALFA YIELD (MLR & RF) COMPARISON ===
+======================================================
+--- STARTING PREPROCESSING ---
+Loading data...
+Working with 701 rows that have yield data
+Removed 1 rows with negative yield values
+Calculating rolling features with 180-day window...
+Calculating monthly features for January to May...
+Calculating 3-month pre-harvest features...
+Merging features...
+Before filtering: 2124 rows in merged dataset
+Removed 1 additional rows with negative yield values
+After filtering: 700 rows with valid yield data remaining
+Creating train/test split using specified experiments...
+Train set: 470 samples from 15 experiments
+Test set: 192 samples from 2 experiments
+
+Train experiments:
+  - BushlandLysimeters_1997: 8 samples
+  - BushlandLysimeters_1998: 10 samples
+  - BushlandLysimeters_1999: 8 samples
+  - BushlandLysimeters_1996: 8 samples
+  - RenoDripIrrigation_2021: 72 samples
+  - RenoDripIrrigation_2022: 72 samples
+  - BushlandCenterPivot_2022: 96 samples
+  - BushlandCenterPivot_2023: 127 samples
+  - Fallon_1973_Final: 12 samples
+  - Fallon_1974_Final: 12 samples
+  - Fallon_1975_Final: 12 samples
+  - Fallon_1976_Final: 9 samples
+  - Fallon_1977_Final: 12 samples
+  - Fallon_1978_Final: 8 samples
+  - Fallon_1982: 4 samples
+
+Test experiments:
+  - RenoLinearMoveIrrigation_2023: 120 samples
+  - RenoDripIrrigation_2023: 72 samples
+--- PREPROCESSING FINISHED ---
+
+--- FITTING PREPROCESSING PIPELINE ---
+--- PREPROCESSING PIPELINE FITTED ---
+
+==================================================
+  RUNNING MODEL 1: MULTIPLE LINEAR REGRESSION (BASELINE)
+==================================================
+Training Linear Regression model...
+Evaluating Linear Regression model...
+Linear Regression Performance:
+  RMSE: 267886582448.1135
+  R²: -26263704874507122507776.0000
+  MAE: 241742397815.4466
+
+Experiment-specific performance:
+  - RenoLinearMoveIrrigation_2023:
+    * RMSE: 155220862308.7509
+    * R²: -15437165050472546959360.0000
+    * MAE: 153475304244.6709
+    * Samples: 120
+  - RenoDripIrrigation_2023:
+    * RMSE: 388860809702.0827
+    * R²: -32338906299558420021248.0000
+    * MAE: 388854220433.4062
+    * Samples: 72
+
+Model package saved to: /data/jzz0124/projects/alfafa/test/saved_models/MLR_Baseline_alf_yield_model_20251112_234536.joblib
+--- Linear Regression analysis complete! ---
+
+==================================================
+  RUNNING MODEL 2: RANDOM FOREST (COMPARISON)
+==================================================
+Training Random Forest with GridSearchCV...
+Fitting 5 folds for each of 81 candidates, totalling 405 fits
+Best Random Forest parameters: {'max_depth': 5, 'max_features': 1.0, 'min_samples_leaf': 1, 'n_estimators': 200}
+Evaluating Random Forest model...
+Random Forest Performance:
+  RMSE: 1.4167
+  R²: 0.2655
+  MAE: 1.0944
+
+Experiment-specific performance:
+  - RenoLinearMoveIrrigation_2023:
+    * RMSE: 1.1038
+    * R²: 0.2193
+    * MAE: 0.8213
+    * Samples: 120
+  - RenoDripIrrigation_2023:
+    * RMSE: 1.8225
+    * R²: 0.2896
+    * MAE: 1.5496
+    * Samples: 72
+Generating plots and saving results for Random Forest...
+train_competing_models.py:265: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(x="Experiment", y="Residual", data=error_df, palette="viridis")
+
+Model package saved to: /data/jzz0124/projects/alfafa/test/saved_models/RandomForest_Comparison_alf_yield_model_20251112_234536.joblib
+--- Random Forest analysis complete! ---
+
+==================================================
+===      COMPARISON PIPELINE FINISHED       ===
+==================================================
+Total execution time: 24.03 seconds
+
+--- OVERALL MODEL PERFORMANCE SUMMARY ---
+Traceback (most recent call last):
+  File "/home/jzz0124/miniconda3/envs/alfafa/lib/python3.8/site-packages/pandas/compat/_optional.py", line 142, in import_optional_dependency
+    module = importlib.import_module(name)
+  File "/home/jzz0124/miniconda3/envs/alfafa/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'tabulate'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "train_competing_models.py", line 396, in <module>
+    print(summary_df.to_markdown(floatfmt=".4f"))
+  File "/home/jzz0124/miniconda3/envs/alfafa/lib/python3.8/site-packages/pandas/core/frame.py", line 2756, in to_markdown
+    tabulate = import_optional_dependency("tabulate")
+  File "/home/jzz0124/miniconda3/envs/alfafa/lib/python3.8/site-packages/pandas/compat/_optional.py", line 145, in import_optional_dependency
+    raise ImportError(msg)
+ImportError: Missing optional dependency 'tabulate'.  Use pip or conda to install tabulate.
+(alfafa) jzz0124@jie-TimeSeries:/data/jzz0124/projects/alfafa/test$ conda install tabulate
+Retrieving notices: ...working... done
+Channels:
+ - defaults
+ - conda-forge
+ - nvidia
+Platform: linux-64
+Collecting package metadata (repodata.json): done
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /home/jzz0124/miniconda3/envs/alfafa
+
+  added / updated specs:
+    - tabulate
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    tabulate-0.9.0             |   py38h06a4308_0          52 KB
+    ------------------------------------------------------------
+                                           Total:          52 KB
+
+The following NEW packages will be INSTALLED:
+
+  tabulate           pkgs/main/linux-64::tabulate-0.9.0-py38h06a4308_0 
+
+
+Proceed ([y]/n)? y
+
+
+Downloading and Extracting Packages:
+                                                                                                             
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+(alfafa) jzz0124@jie-TimeSeries:/data/jzz0124/projects/alfafa/test$ python train_competing_models.py 
+======================================================
+=== STARTING ALFALFA YIELD (MLR & RF) COMPARISON ===
+======================================================
+--- STARTING PREPROCESSING ---
+Loading data...
+Working with 701 rows that have yield data
+Removed 1 rows with negative yield values
+Calculating rolling features with 180-day window...
+Calculating monthly features for January to May...
+Calculating 3-month pre-harvest features...
+Merging features...
+Before filtering: 2124 rows in merged dataset
+Removed 1 additional rows with negative yield values
+After filtering: 700 rows with valid yield data remaining
+Creating train/test split using specified experiments...
+Train set: 470 samples from 15 experiments
+Test set: 192 samples from 2 experiments
+
+Train experiments:
+  - BushlandLysimeters_1997: 8 samples
+  - BushlandLysimeters_1998: 10 samples
+  - BushlandLysimeters_1999: 8 samples
+  - BushlandLysimeters_1996: 8 samples
+  - RenoDripIrrigation_2021: 72 samples
+  - RenoDripIrrigation_2022: 72 samples
+  - BushlandCenterPivot_2022: 96 samples
+  - BushlandCenterPivot_2023: 127 samples
+  - Fallon_1973_Final: 12 samples
+  - Fallon_1974_Final: 12 samples
+  - Fallon_1975_Final: 12 samples
+  - Fallon_1976_Final: 9 samples
+  - Fallon_1977_Final: 12 samples
+  - Fallon_1978_Final: 8 samples
+  - Fallon_1982: 4 samples
+
+Test experiments:
+  - RenoLinearMoveIrrigation_2023: 120 samples
+  - RenoDripIrrigation_2023: 72 samples
+--- PREPROCESSING FINISHED ---
+
+--- FITTING PREPROCESSING PIPELINE ---
+--- PREPROCESSING PIPELINE FITTED ---
+
+==================================================
+  RUNNING MODEL 1: MULTIPLE LINEAR REGRESSION (BASELINE)
+==================================================
+Training Linear Regression model...
+Evaluating Linear Regression model...
+Linear Regression Performance:
+  RMSE: 267886582448.1135
+  R²: -26263704874507122507776.0000
+  MAE: 241742397815.4466
+
+Experiment-specific performance:
+  - RenoLinearMoveIrrigation_2023:
+    * RMSE: 155220862308.7509
+    * R²: -15437165050472546959360.0000
+    * MAE: 153475304244.6709
+    * Samples: 120
+  - RenoDripIrrigation_2023:
+    * RMSE: 388860809702.0827
+    * R²: -32338906299558420021248.0000
+    * MAE: 388854220433.4062
+    * Samples: 72
+
+Model package saved to: /data/jzz0124/projects/alfafa/test/saved_models/MLR_Baseline_alf_yield_model_20251112_235136.joblib
+--- Linear Regression analysis complete! ---
+
+==================================================
+  RUNNING MODEL 2: RANDOM FOREST (COMPARISON)
+==================================================
+Training Random Forest with GridSearchCV...
+Fitting 5 folds for each of 81 candidates, totalling 405 fits
+Best Random Forest parameters: {'max_depth': 5, 'max_features': 1.0, 'min_samples_leaf': 1, 'n_estimators': 200}
+Evaluating Random Forest model...
+Random Forest Performance:
+  RMSE: 1.4167
+  R²: 0.2655
+  MAE: 1.0944
+
+Experiment-specific performance:
+  - RenoLinearMoveIrrigation_2023:
+    * RMSE: 1.1038
+    * R²: 0.2193
+    * MAE: 0.8213
+    * Samples: 120
+  - RenoDripIrrigation_2023:
+    * RMSE: 1.8225
+    * R²: 0.2896
+    * MAE: 1.5496
+    * Samples: 72
+Generating plots and saving results for Random Forest...
+train_competing_models.py:265: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(x="Experiment", y="Residual", data=error_df, palette="viridis")
+
+Model package saved to: /data/jzz0124/projects/alfafa/test/saved_models/RandomForest_Comparison_alf_yield_model_20251112_235136.joblib
+--- Random Forest analysis complete! ---
+
+==================================================
+===      COMPARISON PIPELINE FINISHED       ===
+==================================================
+Total execution time: 23.55 seconds
+
+--- OVERALL MODEL PERFORMANCE SUMMARY ---
+| Model            |              RMSE |                            R2 |               MAE |
+|:-----------------|------------------:|------------------------------:|------------------:|
+| LinearRegression | 267886582448.1135 | -26263704874507122507776.0000 | 241742397815.4466 |
+| RandomForest     |            1.4167 |                        0.2655 |            1.0944 |
